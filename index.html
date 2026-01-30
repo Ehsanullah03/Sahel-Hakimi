@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ehsanullah Hakimi</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  html, body {
+
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  /* PRELOADER */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #0b0b0b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#preloader svg {
+  width: 320px;
+}
+
+
+#preloader text {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: draw 8s ease forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+:root{
+  --primary:#FFD700;
+  --text:#f9fafb;
+  --bg:#000000;
+  --shadow:rgba(0,0,0,0.4);
+  --card-bg:rgba(0,0,0,0.6);
+  --accordion-bg:#11111b;
+  --accordion-content-bg:#11141b;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{ min-height: 100vh; overflow-x: hidden;
+  font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+header{position:fixed;top:0;left:0;width:100%;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:rgba(11,12,26,0.9);backdrop-filter:blur(10px);}
+.logo{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.5rem;}
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.menu-toggle span{width:25px;height:3px;background:var(--primary);border-radius:2px;transition:0.3s;}
+nav{display:flex;gap:2rem;}
+nav a{color:var(--text);text-decoration:none;font-weight:500;transition:0.3s;}
+nav a:hover,nav a.active{color:var(--primary);}
+#menu-mobile{display:none;position:fixed;top:50px;right:10px;background:rgba(11,12,26,0.95);flex-direction:column;justify-content:center;align-items:flex-start;gap:1.5rem;z-index:999;transition:0.3s;transform:translateX(100%);padding:1rem 1.5rem;border-radius:10px;}
+#menu-mobile a{font-size:1.2rem;}
+section::-webkit-scrollbar{
+  display: none;
+}
+
+section{
+  width: 100%;
+  min-height:100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+  padding: 6rem 1rem 2rem;
+  overflow-y: auto;
+
+
+}
+section{ -ms-overflow-style: none;
+  scrollbar-width: none;
+  min-width:100%;height:100vh;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;position:absolute;top:0;left:0;opacity:0;pointer-events:none;transition:opacity 0.5s;padding:6rem 1rem 2rem; overflow-y: auto;}
+section.active{opacity:1;pointer-events:auto;}
+
+#hero h1{ margin-top: 3.5rem;
+  font-family:'Poppins',sans-serif;font-weight:700;font-size:4rem;margin-bottom:1rem;}
+#hero img{margin-top: 2rem;
+  width:200px;height:200px;border-radius:50%;margin-bottom:1rem;object-fit:cover;}
+#hero p{font-size:1.2rem;margin-bottom:2rem;max-width:600px;text-align:justify; text-justify: inter-word;}
+.cta{padding:0.8rem 2rem;background:var(--primary);color:black;border:none;border-radius:6px;font-size:1rem;cursor:pointer;transition:0.3s;margin-top:10px;}
+.cta:hover{background:#e5c700;}
+canvas#background-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;}
+footer{padding:2rem;text-align:center;background:#111827;font-size:0.9rem;color:#6b7280;position:relative;z-index:2;}
+@media(max-width:768px){nav{display:none;}.menu-toggle{display:flex;}#menu-mobile{display:flex;}}
+
+
+/* Spacing for content sections */
+#news, #about, #offer {
+    justify-content: flex-start;
+    padding: 3rem 1rem 2rem 1rem;
+    gap: 1.5rem;
+}
+#news h2, #about h2, #offer h2 {
+    margin-bottom: 1.5rem;
+}
+
+ /* Accordion */
+    .accordion-btn{
+      width:100%;
+      padding:14px 16px;
+      font-size:18px;
+      text-align:left;
+      background:linear-gradient(90deg,#660000,#a32b2b);
+      color:white;
+      border:none;
+      outline:none;
+      cursor:pointer;
+      transition:0.3s;
+      border-radius:8px;
+      margin-bottom:8px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .accordion-btn span.icon{
+      transition:transform 0.3s ease;
+      font-weight:bold;
+    }
+    .accordion-btn.active{
+      background:linear-gradient(90deg,#00b4d8,#0096c7);
+      box-shadow:0 0 20px rgba(0,150,200,0.9);
+      transform:scale(1.03);
+    }
+    .accordion-btn.active span.icon{transform:rotate(90deg);}
+    .accordion-content{
+      max-height:0;
+      overflow:hidden;
+      padding:0 12px;
+      background:linear-gradient(135deg,#f9f9f9,#f1f1f1);
+      border-radius:8px;
+      margin-bottom:12px;
+      transition:max-height 0.6s ease,padding 0.4s ease,opacity 0.5s ease;
+      text-align:left;opacity:0;
+      border-left:4px solid transparent;
+    }
+    .accordion-content.open{
+      padding:12px;
+      max-height:300px;
+      opacity:1;
+      border-left:4px solid #00b4d8;
+      animation:fadeSlide 0.6s ease;
+    }
+    @keyframes fadeSlide{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+    .accordion-content p{margin:0;font-size:16px;color:#333;}
+
+.about-links{
+  max-width:400px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  text-align:left;
+}
+
+.about-links a{
+  font-size:20px;
+  color:#f9fafb;
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.about-links a i{
+  font-size:22px;
+  color:#FFD700;
+}
+
+.about-links a:hover{
+  text-decoration:underline;
+}
+</style>
+</head>
+<body>
+
+  <!-- PRELOADER -->
+<div id="preloader">
+  <svg width="800" height="140" viewBox="0 0 800 140" xmlns="http://www.w3.org/2000/svg">
+      <text
+      x="50%"
+      y="50%"
+      text-anchor="middle"
+      dominant-baseline="middle"
+      font-size="64"
+      font-family="Montserrat, Poppins, Arial, sans-serif"
+      letter-spacing="3"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="2">
+      EHSANULLAH HAKIMI <br> <b>Cybersecurity Master!</b>
+    </text>
+  </svg>
+</div>
+
+<canvas id="background-canvas"></canvas>
+
+<header>
+  <div class="logo">Ehsanullah Hakimi</div>
+  <nav>
+    <a href="#hero" class="active">Home</a>
+    <a href="#cybersecurity">Cybersecurity</a>
+    <a href="#trading">Trading</a>
+    <a href="#astronomy">Astronomy</a>
+       <a href="#about">About Me</a>
+  
+  </nav>
+  <div class="menu-toggle" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</header>
+
+<div id="menu-mobile">
+  <a href="#hero">Home</a>
+  <a href="#cybersecurity">Cybersecurity</a>
+  <a href="#trading">Trading</a>
+  <a href="#astronomy">Astronomy</a>
+   <a href="#about">About Me</a>
+ 
+</div>
+
+<!-- Home Section -->
+<section id="hero" class="active">
+  <h1>Ehsanullah Hakimi</h1>
+  <img src="logo1.png" alt="Your Photo/Logo">
+  <p>I’m Ehsanullah Hakimi, a high-school graduate and technology enthusiast from Afghanistan with a strong academic background and a passion for digital innovation.
+I completed my education at Mehrabuddin High School, achieving A+ grades and maintaining top academic performance. My interests focus on technology, web development, and computer systems, with a strong commitment to self-learning and continuous growth.
+Growth begins when learning never stops. Is the quote I am always using it.
+My goal is to pursue higher education abroad, particularly in Europe, and to build skills that contribute to meaningful, technology driven solutions.
+Discipline, vision, and consistency turn ambition into achievement.
+ </p>
+</section>
+
+<!-- Cybersecurity Section -->
+<section id="cybersecurity">
+  <h2>Cybersecurity</h2>
+  <img style="width:200px;height:200px;border-radius:50%;margin-bottom:1rem;object-fit:cover;" src="logo1.png" alt="Your Photo/Logo">
+  <div class="accordion">
+    <button class="accordion-btn">One Line of Code millions of risk <span class="icon">▶</span></button>
+    <div class="accordion-content"><p>In the modern world, software runs almost everything — from banking systems and hospitals to airports and national infrastructure. A single insecure or incorrect line of code can expose sensitive data, shut down services, or create massive security breaches. History has proven that some of the biggest cyber incidents started from small mistakes that went unnoticed. This reality makes cybersecurity a critical responsibility, not just a technical task.</p></div>
+    
+  <div class="accordion">
+    <button class="accordion-btn">How a Simple Error Can Collapse Systems?<span class="icon">▶</span></button>
+    <div class="accordion-content"><p>Not all cyber disasters are caused by hackers. Sometimes a small configuration mistake, forgotten update, or missing security check is enough to crash entire systems. When software is deeply interconnected, one error can spread across networks in seconds. This is why </p></div>
+     </div>
+
+     <div class="accordion">
+    <button class="accordion-btn">Zero Trust & Least Privilege<span class="icon">▶</span></button>
+    <div class="accordion-content"><p>The “never trust, always verify” philosophy is stronger than ever. Organizations are shifting from perimeter-based defenses to assuming that threats may already be inside the network, enforcing microsegmentation and minimal access.
+      Compromise of third-party vendors is a major attack vector (software libraries, firmware, APIs). Attackers often exploit weak links in the chain rather than directly attacking top targets.
+      AI is being used for anomaly detection, threat hunting, behavior analysis, and automating repetitive tasks. But it’s a double-edged sword: attackers also use AI to craft more sophisticated attacks (deepfakes, intelligent phishing, adaptive malware).</p></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-btn">The Day Code Became More Powerful Than Weapons<span class="icon">▶</span></button>
+    <div class="accordion-content"><p>Power is no longer measured only by military strength. Code has become a silent weapon capable of disrupting economies, disabling infrastructure, and influencing nations without physical violence. Cyber warfare operates in the shadows, proving that keyboards can now be as powerful as armies.</p></div>
+  </div>
+
+  </div>
+</section>
+
+<!-- Trading Section -->
+<section id="trading">
+  <h2>Trading</h2>
+  <img style="width:200px;height:200px;border-radius:50%;margin-bottom:1rem;object-fit:cover;" src="logo1.png" alt="Your Photo/Logo">
+  
+  <div class="accordion">
+    <button class="accordion-btn"> Why Speed Decides Who Wins in Trading<span class="icon">▶</span></button>
+    <div class="accordion-content"><p>Financial markets move at extraordinary speed. Automated systems analyze data and execute trades in milliseconds, 
+
+leaving human reaction far behind. In this environment, speed determines success or failure. Traders who rely only on manual decisions struggle to compete in a world driven by technology and automation.
+</p></div>
+  </div>
+
+   <div class="accordion">
+    <button class="accordion-btn"> The Psychology Behind Every Market Crash<span class="icon">▶</span></button>
+    <div class="accordion-content"><p>Every major market crash is fueled by emotion. Fear accelerates selling, while greed inflates bubbles. Even in algorithm-driven markets, human behavior still shapes outcomes. Understanding emotional control is essential for survival in trading, especially during high volatility.
+</p></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-btn">  How Algorithms Control Global Finance<span class="icon">▶</span></button>
+    <div class="accordion-content"><p>Algorithms now manage pricing, liquidity, and trade execution across global markets. These systems operate 
+
+continuously, responding to data faster than humans can process. While they increase efficiency, they also create systemic risk — where one failure can ripple across the financial world.
+</p></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-btn">The Hidden Forces Moving the Market<span class="icon">▶</span></button>
+    <div class="accordion-content"><p>Markets are influenced by more than charts and news. Economic data, global events, automation, and institutional strategies quietly shape price movements. Understanding these hidden forces separates informed participants from spectators.
+</p></div>
+  </div>
+  
+</section>
+
+<!-- Astronomy Section -->
+<section id="astronomy">
+  <h2>Astronomy</h2>
+   <img style="width:200px;height:200px;border-radius:50%;margin-bottom:1rem;object-fit:cover;" src="logo1.png" alt="Your Photo/Logo">
+  <div class="info-card">
+
+    <div class="accordion">
+    <button class="accordion-btn">	Looking at the Sky Is Looking Back in Time<span class="icon">▶</span></button>
+    <div class="accordion-content"><p>Light from distant stars takes years or even millions of years to reach Earth. 
+When we observe the night sky, we are seeing the universe as it once was. Astronomy allows humans to witness cosmic history written across space and time.
+</p></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-btn">Black Holes Are Breaking the Laws of Reality<span class="icon">▶</span></button>
+    <div class="accordion-content"><p>Black holes are extreme objects where gravity bends space and slows time. They challenge our understanding of physics and push science beyond known limits. Studying them helps scientists unlock secrets about the universe’s origin and structure.
+</p></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-btn">Are We Alone in the Universe?<span class="icon">▶</span></button>
+    <div class="accordion-content"><p>With billions of galaxies and countless planets, the search for life beyond Earth has become more serious than ever. 
+
+Modern telescopes detect atmospheres and chemical signs that may indicate life. Each discovery brings humanity closer to answering one of its greatest questions.
+</p></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-btn">The Sky Is Not Silent<span class="icon">▶</span></button>
+    <div class="accordion-content"><p>The universe is full of motion and energy. Stars explode, galaxies collide, and invisible waves travel through space. Astronomy reveals a dynamic cosmos where change is constant and discovery never ends.
+Knowledge creates power. Curiosity creates the future.
+</p></div>
+  </div>
+
+</section>
+
+
+<section id="about">
+  <h2>About Me</h2>
+<img style="width: 350px;;height: 420px;;border-radius:50%;margin-bottom:1rem;object-fit:cover;" src="white.png" alt="Your Photo/Logo">
+  <div class="info-card">
+  <p style="max-width:600px;margin:0 auto 30px;font-size:18px;line-height:1.6;">
+    Hello, I am <b>Ehsanullah Hakimi</b>.  
+   I am the devloper of this webiste, I am so intreseted in Cybersecurity, Trading and Astronomy and I have made this as my personal website. You can get more info about me by following my socials:
+  </p>
+
+  <div class="about-links">
+    <a href="https://wa.me/93744080222" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+
+    <a href="https://www.facebook.com/profile.php?=61583649804325" target="_blank">
+      <i class="fa-brands fa-facebook"></i> Facebook
+    </a>
+
+    <a href="https://www.instagram.com/sahel-hakimi-official?_r=1&_t=ZG-93V4ip19qkg" target="_blank">
+      <i class="fa-brands fa-instagram"></i> Instagram
+    </a>
+
+    <a href="https://www.tiktok.com/@beautiful.universe.offic?_r=1&_t=ZG-93V4ip19qKG" target="_blank">
+      <i class="fa-brands fa-tiktok"></i> TikTok
+    </a>
+
+    <a href="https://www.youtube.com/@BeautifulUniverse-Official" target="_blank">
+      <i class="fa-brands fa-youtube"></i> YouTube
+    </a>
+
+    <a href="mailto:hakimiehsanullah03@gmail.com">
+      <i class="fa-solid fa-envelope"></i> Email
+    </a>
+
+    
+  </div>
+</section>
+
+
+<footer>
+  &copy; 2025 @Ehsanullah Hakimi. All Rights Reserved
+</footer>
+
+<script>
+
+  window.addEventListener("load", () => {
+  const loader = document.getElementById("preloader");
+
+
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    loader.style.transition = "opacity 1.5s ease";
+
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 600);
+  }, 4000);
+});
+
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('menu-mobile');
+
+hamburger.addEventListener('click', () => {
+    mobileMenu.style.transform = mobileMenu.style.transform === 'translateX(0%)' ? 'translateX(100%)' : 'translateX(0%)';
+});
+document.addEventListener('click', e => {
+    if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+        mobileMenu.style.transform = 'translateX(100%)';
+    }
+});
+
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('nav a, #menu-mobile a');
+
+navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+            sections.forEach(s => s.classList.remove('active'));
+            target.classList.add('active');
+        }
+        mobileMenu.style.transform = 'translateX(100%)';
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        const navLink = document.querySelector(`nav a[href='${link.getAttribute('href')}']`);
+        if (navLink) navLink.classList.add('active');
+        updateBackground(target.id);
+    });
+});
+
+// Accordion logic (open/close toggle)
+document.querySelectorAll(".accordion-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const content=btn.nextElementSibling;
+    const isActive=btn.classList.contains("active");
+
+    // Close all
+    document.querySelectorAll(".accordion-btn").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".accordion-content").forEach(c=>c.classList.remove("open"));
+
+    // If it wasn't active, open it
+    if(!isActive){
+      btn.classList.add("active");
+      content.classList.add("open");
+    }
+  });
+});
+
+// Canvas Background
+const canvas = document.getElementById('background-canvas');
+const ctx = canvas.getContext('2d');
+function resizeCanvas(){canvas.width = window.innerWidth; canvas.height = window.innerHeight;}
+window.addEventListener('resize', resizeCanvas); resizeCanvas();
+
+let stars = [], tradingLines = [], cyberMatrix = [];
+function initStars(){stars=[]; for(let i=0;i<150;i++){stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.5+0.3,dx:(Math.random()-0.5)*0.2,dy:(Math.random()-0.5)*0.2});}}
+function initTrading(){tradingLines=[]; for(let i=0;i<50;i++){tradingLines.push({x:Math.random()*canvas.width,y:canvas.height/2+Math.random()*100,height:Math.random()*50,speed:Math.random()*1.5+0.5});}}
+function initCyber(){cyberMatrix=[]; let cols=Math.floor(canvas.width/20); for(let i=0;i<cols;i++){cyberMatrix[i]={y:Math.random()*canvas.height,x:i*20,char:String.fromCharCode(33+Math.floor(Math.random()*94))};}}
+initStars(); initTrading(); initCyber();
+let currentBg='hero';
+function updateBackground(sectionId){currentBg=sectionId;ctx.clearRect(0,0,canvas.width,canvas.height);}
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(currentBg==='astronomy'){stars.forEach(s=>{ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle="#fff";ctx.fill();s.x+=s.dx;s.y+=s.dy;if(s.x<0)s.x=canvas.width;if(s.x>canvas.width)s.x=0;if(s.y<0)s.y=canvas.height;if(s.y>canvas.height)s.y=0;});}
+    else if(currentBg==='trading'){tradingLines.forEach(line=>{ctx.beginPath();ctx.moveTo(line.x,line.y);ctx.lineTo(line.x,line.y-line.height);ctx.strokeStyle="#FFD700";ctx.lineWidth=2;ctx.stroke();line.y-=line.speed;if(line.y-line.height<0)line.y=canvas.height;});}
+    else if(currentBg==='cybersecurity'){cyberMatrix.forEach(col=>{ctx.fillStyle="#0f0";ctx.font="20px monospace";ctx.fillText(col.char,col.x,col.y);col.y+=20;if(col.y>canvas.height)col.y=0;col.char=String.fromCharCode(33+Math.floor(Math.random()*94));});}
+    requestAnimationFrame(draw);
+}
+draw();
+
+
+
+</script>
+</body>
+</html>
